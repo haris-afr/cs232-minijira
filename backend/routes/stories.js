@@ -7,6 +7,7 @@ const router = express.Router({ mergeParams: true });
 
 router.use(auth);
 
+// gets story status from task status
 const STORY_STATUS_SQL = `
   CASE
     WHEN COUNT(t.taskID) = 0 THEN 'to-do'
@@ -18,6 +19,7 @@ const STORY_STATUS_SQL = `
   END
 `;
 
+// list down stories
 router.get('/', async (req, res) => {
   try {
     const projectID = parseId(req.params.projectID);
@@ -44,6 +46,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+// make new story
 router.post('/', async (req, res) => {
   try {
     const projectID = parseId(req.params.projectID);
@@ -66,6 +69,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+// when someone clicks on specific story
 router.get('/:storyID', async (req, res) => {
   try {
     const projectID = parseId(req.params.projectID);
@@ -93,6 +97,7 @@ router.get('/:storyID', async (req, res) => {
   }
 });
 
+// update story
 router.put('/:storyID', async (req, res) => {
   try {
     const projectID = parseId(req.params.projectID);
@@ -119,6 +124,7 @@ router.put('/:storyID', async (req, res) => {
   }
 });
 
+// delete story
 router.delete('/:storyID', async (req, res) => {
   try {
     const projectID = parseId(req.params.projectID);
